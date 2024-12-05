@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup PHP
+      - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
@@ -40,10 +40,10 @@ jobs:
         run: npm install tailwindcss postcss autoprefixer
 
       - name: Run Composer Dump-Autoload
-        run: /opt/cpanel/ea-php81/root/usr/bin/php /opt/cpanel/composer/bin/composer dump-autoload
+        run: composer dump-autoload
 
       - name: Run Artisan Optimize Clear
-        run: /opt/cpanel/ea-php81/root/usr/bin/php artisan optimize:clear
+        run: php artisan optimize:clear
 
       - name: Build assets with npm
         run: npm run build
