@@ -11,47 +11,46 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout repository
       - uses: actions/checkout@v4
 
-      # Step 2: Setup PHP environment
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
 
-      # Step 3: Check if composer.json exists
       - name: Check if composer.json exists
         id: check_files
         uses: andstor/file-existence-action@v1
         with:
           files: 'composer.json'
 
-      # Step 4: Install Composer dependencies if composer.json exists
       - name: Run composer install if composer.json exists
         if: steps.check_files.outputs.files_exists == 'true'
-        run: |
-          composer validate --no-check-publish && composer install --prefer-dist --no-progress
+        run: composer validate --no-check-publish && composer install --prefer-dist --no-progress
 
-      # Step 5: Set up Node.js environment (if using frontend build tools like NPM)
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16.x'
 
-      # Step 6: Install npm dependencies
       - name: Install npm dependencies
         run: npm install
 
-      # Step 7: Build frontend assets (if using frontend assets)
+      - name: Install Tailwind CSS, PostCSS, and Autoprefixer
+        run: npm install tailwindcss postcss autoprefixer
+
+      - name: Run Composer Dump-Autoload
+        run: /opt/cpanel/ea-php81/root/usr/bin/php /opt/cpanel/composer/bin/composer dump-autoload
+
+      - name: Run Artisan Optimize Clear
+        run: /opt/cpanel/ea-php81/root/usr/bin/php artisan optimize:clear
+
       - name: Build assets with npm
         run: npm run build
 
-      # Step 8: Zip the artifact for deployment
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
 
-      # Step 9: Upload artifact for deployment job
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
@@ -66,22 +65,19 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     
     steps:
-      # Step 1: Download artifact from build job
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: php-app
 
-      # Step 2: Unzip artifact for deployment
       - name: Unzip artifact for deployment
         run: unzip release.zip
-
-      # Step 3: Deploy to Azure Web App
+      
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: 'sentiva'  # Correct Azure Web App name
+          app-name: 'sentiva'
           slot-name: 'Production'
           package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F57CC86CB82B44BD94A8D0D691A73371 }}
