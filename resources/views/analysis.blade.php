@@ -1,14 +1,9 @@
-
-<link href="{{ mix('css/app.css') }}" rel="stylesheet">
-<link href="{{ asset('css/sentiment_analysis.css') }}" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-<meta name="csrf-token" content="{{ csrf_token() }}">
-<div class="analysis-page">
 @livewireStyles
 @livewireScripts
-
-    <script src="//unpkg.com/alpinejs" defer></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+<script src="//unpkg.com/alpinejs" defer></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="{{ mix('css/app.css') }}" rel="stylesheet">
 <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <x-app-layout>
         <x-slot name="header">
