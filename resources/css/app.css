@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.max-w-lg {
+    max-width: 100rem; /* Example of customizing max-width */
+  }
+  .flex-none {
+    flex: 0 0 auto; /* Customize flex behavior */
+  }
