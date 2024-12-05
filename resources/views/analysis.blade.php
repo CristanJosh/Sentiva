@@ -735,3 +735,4 @@ textarea:focus {
     box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0) !important;
 }
     </style>
+</x-app-layout>
