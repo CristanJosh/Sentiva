@@ -79,10 +79,5 @@ jobs:
           package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F57CC86CB82B44BD94A8D0D691A73371 }}
 
-
-      - name: Restart Azure Web App
-        run: |
-          az webapp restart --name sentiva --resource-group nusangso-rg
-
       - name: Verify Deployment
         run: curl --silent --fail http://sentiva.azurewebsites.net || exit 1
