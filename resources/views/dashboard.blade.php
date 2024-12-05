@@ -2,6 +2,7 @@
 @livewireStyles
 @livewireScripts
 <script src="//unpkg.com/alpinejs" defer></script>
+<script src="https://cdn.tailwindcss.com"></script>
 
 <x-app-layout>
     <x-slot name="header">
