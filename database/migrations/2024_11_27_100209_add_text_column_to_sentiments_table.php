@@ -9,12 +9,15 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-public function up()
-{
-    Schema::table('sentiments', function (Blueprint $table) {
-        $table->text('text')->nullable(); // Add the 'text' column
-    });
-}
+    public function up()
+    {
+        if (!Schema::hasColumn('sentiments', 'text')) {
+            Schema::table('sentiments', function (Blueprint $table) {
+                $table->text('text')->nullable();
+            });
+        }
+    }
+    
 
 public function down()
 {
