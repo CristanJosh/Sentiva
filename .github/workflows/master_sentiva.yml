@@ -82,7 +82,7 @@ jobs:
 
       - name: Restart Azure Web App
         run: |
-          az webapp restart --name sentiva --resource-group <your-resource-group-name>
+          az webapp restart --name sentiva --resource-group nusangso-rg
 
       - name: Verify Deployment
         run: curl --silent --fail http://sentiva.azurewebsites.net || exit 1
