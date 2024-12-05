@@ -81,7 +81,7 @@ jobs:
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: 'sentiva-e3e3f6ggdzakedc6'  # Update with your Azure Web App name
+          app-name: 'sentiva'  # Correct Azure Web App name
           slot-name: 'Production'
           package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F57CC86CB82B44BD94A8D0D691A73371 }}
