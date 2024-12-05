@@ -72,8 +72,8 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
-      
-      - name: 'Deploy to Azure Web App'
+
+      - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
@@ -81,3 +81,17 @@ jobs:
           slot-name: 'Production'
           package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F57CC86CB82B44BD94A8D0D691A73371 }}
+
+      - name: Clear Laravel Cache (Post-Deployment)
+        run: |
+          php artisan config:clear
+          php artisan cache:clear
+          php artisan route:clear
+          php artisan view:clear
+
+      - name: Restart Azure Web App
+        run: |
+          az webapp restart --name sentiva --resource-group <your-resource-group-name>
+
+      - name: Verify Deployment
+        run: curl --silent --fail http://sentiva.azurewebsites.net || exit 1
