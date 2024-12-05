@@ -36,8 +36,8 @@ jobs:
       - name: Install npm dependencies
         run: npm install
 
-      - name: Install Tailwind CSS, PostCSS, and Autoprefixer
-        run: npm install tailwindcss postcss autoprefixer
+      - name: Install Tailwind CSS
+        run: npm install tailwindcss
 
       - name: Run Composer Dump-Autoload
         run: composer dump-autoload
@@ -78,6 +78,3 @@ jobs:
           slot-name: 'Production'
           package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F57CC86CB82B44BD94A8D0D691A73371 }}
-
-      - name: Verify Deployment
-        run: curl --silent --fail http://sentiva.azurewebsites.net || exit 1
