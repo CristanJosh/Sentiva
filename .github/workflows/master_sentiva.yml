@@ -42,9 +42,6 @@ jobs:
       - name: Run Composer Dump-Autoload
         run: composer dump-autoload
 
-      - name: Run Artisan Optimize Clear
-        run: php artisan optimize:clear
-
       - name: Build assets with npm
         run: npm run build
 
