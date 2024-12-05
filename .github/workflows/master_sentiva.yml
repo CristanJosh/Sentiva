@@ -28,6 +28,12 @@ jobs:
         if: steps.check_files.outputs.files_exists == 'true'
         run: composer validate --no-check-publish && composer install --prefer-dist --no-progress
 
+      - name: Install additional Composer packages
+        run: |
+          composer require barryvdh/laravel-dompdf
+          composer require phpoffice/phpword
+          composer require smalot/pdfparser
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -76,5 +82,5 @@ jobs:
         with:
           app-name: 'sentiva'
           slot-name: 'Production'
-          package: .
+          package: . 
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F57CC86CB82B44BD94A8D0D691A73371 }}
