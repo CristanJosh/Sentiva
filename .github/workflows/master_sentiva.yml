@@ -79,12 +79,6 @@ jobs:
           package: .
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F57CC86CB82B44BD94A8D0D691A73371 }}
 
-      - name: Clear Laravel Cache (Post-Deployment)
-        run: |
-          php artisan config:clear
-          php artisan cache:clear
-          php artisan route:clear
-          php artisan view:clear
 
       - name: Restart Azure Web App
         run: |
